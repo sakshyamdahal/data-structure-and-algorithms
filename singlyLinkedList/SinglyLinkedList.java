@@ -189,6 +189,32 @@ public class SinglyLinkedList<E>{
 		// couldn't find the element
 		return false;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (o == null) return false;
+		if (getClass() != o.getClass()) return false;
+		
+		SinglyLinkedList<E> other = (SinglyLinkedList<E>) o;
+		if (size() != other.size()) return false;
+		Node<E> pointer1 = head;
+		Node<E> pointer2 = other.head;
+		
+		while (pointer1 != null)
+		{
+			if (!pointer1.getElement().equals(pointer2.getElement()))
+			{
+				return false;
+			}
+			
+			pointer1 = pointer1.getNext();
+			pointer2 = pointer2.getNext();
+		}
+		
+		return true;
+	}
+	
 	
 	@Override
 	public String toString()

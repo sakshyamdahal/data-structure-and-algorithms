@@ -214,6 +214,31 @@ public class SinglyLinkedList<E>{
 		
 		return true;
 	}
+
+	@Override
+	public SinglyLinkedList<E> clone() throws CloneNotSupportedException
+	{
+		@SuppressWarnings("unchecked")
+		SinglyLinkedList<E> listCopy = (SinglyLinkedList<E>) super.clone();
+		if (listCopy.size() > 0)
+		{
+			listCopy.head = new Node<E>(head.getElement(), null);
+			listCopy.tail = listCopy.head;
+			
+			Node<E> pointer = head.getNext();
+			
+			while(pointer != null)
+			{
+				Node<E> newNode = new Node<E>(pointer.getElement(), null);
+				listCopy.tail.setNext(newNode);
+				listCopy.tail = newNode;
+				pointer = pointer.getNext();
+			}
+		}
+		
+		return listCopy;
+	}
+	
 	
 	
 	@Override

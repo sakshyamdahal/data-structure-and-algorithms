@@ -7,6 +7,7 @@ public class Search {
 	/*
 	 * The binary search algorithm runs in O(log n) time for a sorted array of
 	 * n elements and O(1) extra space.
+	 * The recursive implementation requires O(log n) extra space.
 	 */
 	
 	/* returns the index of key. If key not found returns - 1 */

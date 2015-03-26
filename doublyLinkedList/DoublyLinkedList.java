@@ -101,6 +101,25 @@ public class DoublyLinkedList<E> {
 		second.setPrev(newNode);
 		size++;
 	}
+
+	/* get the middle element of the list */
+	/* if the list is even middle element is towards the left of center */
+	public E middle()
+	{
+		if (isEmpty()) return null;
+		Node<E> front = sentinel.getNext().getNext();
+		Node<E> back = sentinel.getPrev().getPrev();
+		
+		while(!(front == back) && !(front.next == back))
+		{
+			
+			front = front.next;
+			back = back.prev;
+		}
+		
+		return front.getElement();
+		
+	}
 	
 	/* prints the list in the same order */
 	public void printList()

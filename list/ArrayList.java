@@ -1,8 +1,46 @@
-package practice.edu;
-
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public class ArrayList<E> implements List<E>{
+public class ArrayList<E> implements List<E> {
+
+	/* nested ArrayIterator class */
+	private class ArrayIterator implements Iterator<E> {
+		private int j = 0;
+		private boolean removable = false;
+
+		/* 
+		 * tests whether the iterator has a next object
+		 */
+		@Override
+		public boolean hasNext() {
+			return j < size;
+		}
+
+		/*
+		 * returns the next object in the iterator 
+		 * throws no such element exception if no further elements
+		 */
+		@Override
+		public E next() {
+			if (j == size) throw new NoSuchElementException("No next element.");
+			removable = true;
+			return data[j++];
+		}
+		
+		/*
+		 * removes the element returned by most recent call to next
+		 */
+		@Override
+		public void remove() throws IllegalStateException {
+			if (!removable) throw new IllegalStateException("nothing to remove.");
+			ArrayList.this.remove(j - 1);
+			j--;
+			removable = false;
+		}
+	}
+	
+	/* end of nested ArrayIterator class */
 	
 	private E[] data;
 	private int size;
@@ -90,6 +128,15 @@ public class ArrayList<E> implements List<E>{
 	{
 		E[] temp = (E[]) new Object[capacity];
 		data = Arrays.copyOf(data, capacity);
+	}
+
+
+	/*
+	 * returns an iterator of elements stored in the list
+	 */
+	@Override
+	public Iterator<E> iterator() {
+		return new ArrayIterator();
 	}
 	
 	/* testing */
